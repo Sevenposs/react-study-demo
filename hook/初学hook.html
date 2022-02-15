@@ -1,0 +1,68 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+  </head>
+  <script
+    crossorigin
+    src="https://unpkg.com/react@17/umd/react.development.js"
+  ></script>
+  <script
+    crossorigin
+    src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"
+  ></script>
+  <script src="../build/babel.min.js"></script>
+  <body>
+    <div id="app"></div>
+  </body>
+  <script type="text/babel">
+    function HookDemo() {
+      const [count, setCount] = React.useState(0);
+      return (
+        <div>
+          <p> 你单击了{count}次</p>
+          <button onClick={() => setCout(count + 1)}>单击</button>
+        </div>
+      );
+    }
+    // 函数组件 hook
+    function App() {
+      // 声明一个叫 "count" 的 state 变量。
+      // 事件方法名"setCount"
+      // 使用html引入react所以需要在方法前加React,如果node.js搭建项目忽略
+      // React.useState()括号内为初始值
+      const [count, setCount] = React.useState(0);
+      return (
+        <div>
+          <p>开始数字{count} </p>
+          <button onClick={() => setCount(count + 1)}>点击</button>
+        </div>
+      );
+    }
+
+    // 类组件
+    class AppClass extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          count: 0,
+        };
+        this.countAdd = this.countAdd.bind(this) //或者使用箭头函数
+      }
+      countAdd() {
+        this.setState(state => ({
+          count: state.count + 1,
+        }))
+      }
+      render() {
+        return(
+        <div>
+          <p>开始数字{this.state.count} </p>
+          <button onClick={()=> this.countAdd()}>点击</button>
+        </div>
+        );
+      }
+    }
+    ReactDOM.render(<AppClass />, document.getElementById("app"));
+  </script>
+</html>
