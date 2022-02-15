@@ -10,17 +10,26 @@
     <div id="example"></div>
     <script type="text/babel">
       var names = ['Alice', 'Emily', 'Kate'];
+      const thins =  [1,2,3];
+      ReactDOM.render(<div>{
+        thins.map((i) =>{
+          return <b key ={i}>{i*2} </b>
+        })
+      }
 
-      ReactDOM.render(
-        <div>
-        {
-          names.map(function (name, index) {
-            return <div key={index}>Hello, {name}!</div>
-          })
-        }
         </div>,
         document.getElementById('example')
-      );
+        )
+      // ReactDOM.render(
+      //   <div>
+      //   {
+      //     names.map(function (name, index) {
+      //       return <div key={index}>Hello, {name}!</div>
+      //     })
+      //   }
+      //   </div>,
+      //   document.getElementById('example')
+      // );
     </script>
   </body>
 </html>

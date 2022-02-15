@@ -13,26 +13,31 @@
         constructor(props) {
           super(props)
           this.state = {
-            opacity: 1.0
+            opacity: 1.0,
+            color: 'red'
           };
         }
 
         componentDidMount() {
           this.timer = setInterval(function () {
             var opacity = this.state.opacity;
+            var color = this.state.color;
             opacity -= .05;
+            console.log(opacity,color);
             if (opacity < 0.1) {
               opacity = 1.0;
+              color = 'black';
             }
             this.setState({
-              opacity: opacity
+              opacity: opacity,
+              color: color,
             });
-          }.bind(this), 100);
+          }.bind(this), 1000);
         }
 
         render() {
           return (
-            <div style={{opacity: this.state.opacity}}>
+            <div style={{opacity: this.state.opacity, color: this.state.color}}>
               Hello {this.props.name}
             </div>
           );
