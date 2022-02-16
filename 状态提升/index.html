@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <script
+    crossorigin
+    src="https://unpkg.com/react@17/umd/react.development.js"
+  ></script>
+  <script
+    crossorigin
+    src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"
+  ></script>
+  <script src="../build/babel.min.js"></script>
+  <body>
+    <div id="app"></div>
+  </body>
+  <script type="text/babel">
+    // 转换的工具函数
+    function toCelsius(fahrenheit) {
+      return ((fahrenheit - 32) * 5) / 9;
+    }
+
+    function toFahrenheit(celsius) {
+      return (celsius * 9) / 5 + 32;
+    }
+    function tryConvert(temperature, convert) {
+      const input = parseFloat(temperature);
+      if (Number.isNaN(input)) {
+        return "";
+      }
+      const output = convert(input);
+      const rounded = Math.round(output * 1000) / 1000;
+      return rounded.toString();
+    }
+
+    const scaleNames = {
+      c: "摄氏",
+      f: "华氏",
+    };
+    function BoilingVerdict(props) {
+      if (props.celsius >= 100) {
+        return <p>这水开了</p>;
+      }
+      return <p>这水没开了</p>;
+    }
+    class Calculator extends React.Component {
+      constructor(props) {
+        super(props);
+        this.handleChange = this.handleChange.bind(this);
+        this.state = { temperature: "" };
+      }
+
+      handleChange(e) {
+        this.props.onTempratChange(e.target.value);
+        // this.setState({ temperature: e.target.value });
+      }
+
+      render() {
+        const temperature = this.props.temperature;
+        const scale = this.props.scale;
+        return (
+          <fieldset>
+            <legend>请输入{scaleNames[scale]}温度:</legend>
+            <input value={temperature} onChange={this.handleChange} />
+            <BoilingVerdict celsius={parseFloat(temperature)} />
+          </fieldset>
+        );
+      }
+    }
+    class TShe extends React.Component {
+      constructor(props) {
+        super(props);
+        this.handleCelsiusChange = this.handleCelsiusChange.bind(this);
+        this.handleFahrenheitChange = this.handleFahrenheitChange.bind(this);
+        this.state = { temperature: "", scale: "c" };
+      }
+      handleCelsiusChange(temperature) {
+        this.setState({ scale: "c", temperature });
+      }
+
+      handleFahrenheitChange(temperature) {
+        this.setState({ scale: "f", temperature });
+      }
+      render() {
+        const scale = this.state.scale;
+        const temperature = this.state.temperature;
+        const celsius =
+          scale === "f" ? tryConvert(temperature, toCelsius) : temperature;
+        const fahrenheit =
+          scale === "c" ? tryConvert(temperature, toFahrenheit) : temperature;
+        return (
+          <div>
+            <Calculator
+              scale="c"
+              temperature={celsius}
+              onTempratChange={this.handleCelsiusChange}
+            />
+            <Calculator
+              scale="f"
+              temperature={fahrenheit}
+              onTempratChange={this.handleCelsiusChange}
+            />
+          </div>
+        );
+      }
+    }
+    ReactDOM.render(<TShe />, document.getElementById("app"));
+  </script>
+</html>

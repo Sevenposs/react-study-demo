@@ -1,0 +1,81 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <script
+    crossorigin
+    src="https://unpkg.com/react@17/umd/react.development.js"
+  ></script>
+  <script
+    crossorigin
+    src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"
+  ></script>
+  <script src="../build/babel.min.js"></script>
+  <body>
+    <div id="app"></div>
+  </body>
+  <script type="text/babel">
+    const numbers = [1, 2, 3, 4, 78];
+    const listItems = numbers.map((number) => <li>{number}</li>);
+    function NumberList(props) {
+      const numbers = props.numbers;
+      const listItems = numbers.map((number, index) => (
+        <li key={index}>{number}</li>
+      ));
+      return <ul>{listItems}</ul>;
+    }
+    class NumberListC extends React.Component {
+      constructor(props) {
+        super(props);
+        this.state = {
+          numbers: props.num,
+          listItems: null,
+        };
+      }
+      componentDidMount() {
+        setInterval(() => {
+          this.setState((state) => ({
+            listItems: this.state.numbers.map((number, index) => (
+              <li key={index}>{number}</li>
+            )),
+            numbers: this.state.numbers.map((i) => (i = i / 3)),
+          }));
+        }, 1000);
+      }
+      render() {
+        return <ul>{this.state.listItems}</ul>;
+      }
+    }
+
+    //俩种组合
+    function NumberItem(props) {
+      return <li>{props.num}</li>;
+    }
+    function Numbers(props) {
+      const numbers = props.number;
+      const numberItem = numbers.map((i) => {
+        return <NumberItem num={i} key={i.toString()} />;
+      });
+      console.log(numbers,numberItem);
+      return <ul>{numberItem} </ul>;
+    }
+    const testNumber = [ 1, 2,3,23]
+    // ReactDOM.render(<ul>{listItems}</ul>, document.getElementById("app"));
+    // ReactDOM.render(<NumberList numbers={numbers}/>, document.getElementById("app"));
+    // ReactDOM.render(
+    //   <NumberListC num={numbers} />,
+    //   document.getElementById("app")
+    // );
+
+
+    // 兄弟组件可以使用相同的key
+    ReactDOM.render(
+      <Numbers number={testNumber} />,
+      document.getElementById("app")
+    );
+  </script>
+</html>
