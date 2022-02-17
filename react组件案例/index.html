@@ -1,27 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <title>Document</title>
-</head>
-<script
-crossorigin
-src="https://unpkg.com/react@17/umd/react.development.js"
-></script>
-<script
-crossorigin
-src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"
-></script>
-<script src="../build/babel.min.js"></script>
-<body>
+  </head>
+  <script
+    crossorigin
+    src="https://unpkg.com/react@17/umd/react.development.js"
+  ></script>
+  <script
+    crossorigin
+    src="https://unpkg.com/react-dom@17/umd/react-dom.development.js"
+  ></script>
+  <script src="../build/babel.min.js"></script>
+  <body>
     <div id="app"></div>
   </body>
   <script type="text/babel">
-    function BigBox(){
-        return 
+    function LineItem(props) {
+      const product = props.product;
+      const name = product.stocked ? (
+        product.name
+      ) : (
+        <span style={{ color: "red" }}>{product.name}</span>
+      );
+      return;
+      <tr>
+        <td>{name}</td>
+        <td>{product.price}</td>
+      </tr>;
     }
-    ReactDOM.render(<SignUpDialog />, document.getElementById("app"));
+    function TableBox(props) {
+      const category = this.props.category;
+      return (
+        <tr>
+          <th colSpan="2">{category}</th>
+        </tr>
+      );
+    }
+    const PRODUCTS = [
+      {
+        category: "Sporting Goods",
+        price: "$49.99",
+        stocked: true,
+        name: "Football",
+      },
+      {
+        category: "Sporting Goods",
+        price: "$9.99",
+        stocked: true,
+        name: "Baseball",
+      },
+      {
+        category: "Sporting Goods",
+        price: "$29.99",
+        stocked: false,
+        name: "Basketball",
+      },
+      {
+        category: "Electronics",
+        price: "$99.99",
+        stocked: true,
+        name: "iPod Touch",
+      },
+      {
+        category: "Electronics",
+        price: "$399.99",
+        stocked: false,
+        name: "iPhone 5",
+      },
+      {
+        category: "Electronics",
+        price: "$199.99",
+        stocked: true,
+        name: "Nexus 7",
+      },
+    ];
+    ReactDOM.render(
+      <LineItem product={PRODUCTS} />,
+      document.getElementById("app")
+    );
   </script>
 </html>
