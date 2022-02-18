@@ -1,6 +1,7 @@
 import React from "react";
 import ReactDOM from "react-dom";
 import "./index.css";
+import AntdDemo  from './antd'
 
 class Square extends React.Component {
   render() {
@@ -12,6 +13,7 @@ class Test extends React.Component {
     return (
       <div>
         <Game />
+        <AntdDemo />
         <a href="www.baidu.com">223</a>
       </div>
     );
